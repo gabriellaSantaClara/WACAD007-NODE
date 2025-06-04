@@ -5,17 +5,13 @@ import { fileURLToPath } from 'url';
 import { createLink } from './util.js';
 import dotenv from 'dotenv';
 
-// Necessário para lidar com __dirname em ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const folder = process.argv[2] || '.';
 const PORT = process.env.PORT || 3333;
 
 const server = http.createServer((req, res) => {
-  const url = req.url;
+const url = req.url;
 const filepath = folder + url;
 
   if (url === '/') {
@@ -26,9 +22,7 @@ const filepath = folder + url;
       res.end();
     });
   } else {
-    fs.readFile(filepath, 'utf-8', (err, data) => {
-      
-
+      fs.readFile(filepath, 'utf-8', (err, data) => {
       res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });
       res.write(`<a href="/">Voltar</a><br><br>`);
       res.write(`<pre>${data}</pre>`);
